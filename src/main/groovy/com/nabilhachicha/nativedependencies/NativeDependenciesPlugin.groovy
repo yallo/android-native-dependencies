@@ -17,8 +17,6 @@
 package com.nabilhachicha.nativedependencies
 
 import org.gradle.api.Project
-import com.android.build.gradle.AppPlugin
-import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskInstantiationException
 import org.gradle.api.Plugin
@@ -53,8 +51,19 @@ class NativeDependenciesPlugin implements Plugin<Project> {
     }
 
     private static void verifyRequiredPlugins(Project project) {
-        if (!project.plugins.hasPlugin(AppPlugin) && !project.plugins.hasPlugin(LibraryPlugin)) {
-            throw new TaskInstantiationException("'android' or 'android-library' plugin has to be applied before")
+        Class<?> appPlugin = loadClass("com.android.build.gradle.AppPlugin");
+        if (appPlugin != null && project.plugins.hasPlugin(appPlugin)) return;
+        Class<?> libraryPlugin = loadClass("com.android.build.gradle.LibraryPlugin");
+        if (libraryPlugin != null && project.plugins.hasPlugin(libraryPlugin)) return;
+
+        throw new TaskInstantiationException("'android' or 'android-library' plugin has to be applied before")
+    }
+
+    private static Class<?> loadClass(String className) {
+        try {
+            return Class.forName(className);
+        } catch(all) {
+            return null;
         }
     }
 }
