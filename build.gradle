@@ -15,7 +15,6 @@ buildscript {
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'nexus'
 
 dependencies {
@@ -30,7 +29,7 @@ repositories {
     mavenCentral()
 }
 
-group = 'com.nabilhachicha'
+group = 'com.yallo.app'
 version = '0.1.2'
 
 modifyPom {
@@ -116,17 +115,10 @@ publishing {
     }
 }
 
-bintray {
-    key = project.hasProperty('bintray_apikey') ? project.getProperty('bintray_apikey') : null
-    user = project.hasProperty('bintray_user') ? project.getProperty('bintray_user') : null
-    publications = ['mavenJava']
-
-    pkg {
-        repo = 'gradle-plugins'
-        name = 'android-native-dependencies'
-        licenses = ['Apache-2.0']
-    }
-}
+ nexus {
+     sign = false
+     repositoryUrl = 'http://146.148.58.44/nexus/content/repositories/releases'
+ }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2'
