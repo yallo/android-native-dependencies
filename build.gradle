@@ -1,5 +1,10 @@
 import org.gradle.api.artifacts.maven.MavenDeployment
 
+tasks.withType(JavaCompile) {
+    sourceCompatibility = '1.7'
+    targetCompatibility = '1.7'
+}
+
 buildscript {
     repositories {
         mavenCentral()
@@ -30,7 +35,7 @@ repositories {
 }
 
 group = 'com.yallo.app'
-version = '0.1.2'
+version = '0.1.4'
 
 modifyPom {
     project {
