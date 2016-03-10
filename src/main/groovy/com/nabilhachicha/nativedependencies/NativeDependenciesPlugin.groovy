@@ -55,7 +55,7 @@ class NativeDependenciesPlugin implements Plugin<Project> {
         if (appPlugin != null && project.plugins.hasPlugin(appPlugin)) return;
         Class<?> libraryPlugin = loadClass("com.android.build.gradle.LibraryPlugin");
         if (libraryPlugin != null && project.plugins.hasPlugin(libraryPlugin)) return;
-        Class<?> experimentalAppPlugin = loadClass("com.android.build.gradle.model.AndroidComponentModelPlugin");
+        Class<?> experimentalAppPlugin = loadClass("com.android.build.gradle.model.AppComponentModelPlugin");
         if (experimentalAppPlugin != null && project.plugins.hasPlugin(experimentalAppPlugin)) return;
         Class<?> experimentalLibraryPlugin = loadClass("com.android.build.gradle.model.LibraryComponentModelPlugin");
         if (experimentalLibraryPlugin != null && project.plugins.hasPlugin(experimentalLibraryPlugin)) return;
